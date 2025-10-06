@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
         <Button
           onClick={toggleMobileMenu}
           variant="ghost"
-          className="text-white hover:bg-white/10 p-2 cursor-pointer"
+          className="text-white p-2 cursor-pointer"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </Button>
@@ -56,7 +56,7 @@ const Sidebar: React.FC = () => {
               <Button
                 onClick={toggleMobileMenu}
                 variant="ghost"
-                className="text-white hover:bg-white/10 p-2 cursor-pointer"
+                className="text-white p-2 cursor-pointer"
               >
                 <X size={24} />
               </Button>
