@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Sidebar from '@/components/Sidebar';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "@/components/Sidebar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const ChangePasswordPage: React.FC = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorNewPassword, setErrorNewPassword] = useState('');
-  const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorNewPassword, setErrorNewPassword] = useState("");
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   const decodeUserId = (): string | null => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
+        const payload = JSON.parse(atob(token.split(".")[1]));
         return payload.uid;
       } catch (error) {
-        console.error('Error decoding token:', error);
+        console.error("Error decoding token:", error);
         return null;
       }
     }
@@ -29,45 +29,47 @@ const ChangePasswordPage: React.FC = () => {
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Reset all error messages
-    setErrorNewPassword('');
-    setErrorConfirmPassword('');
-    setErrorMessage('');
-    setSuccessMessage('');
+    setErrorNewPassword("");
+    setErrorConfirmPassword("");
+    setErrorMessage("");
+    setSuccessMessage("");
 
     // Basic validations
     if (!newPassword) {
-      setErrorNewPassword('New password is required.');
+      setErrorNewPassword("New password is required.");
       return;
     }
     if (newPassword.length < 8) {
-      setErrorNewPassword('New password must be at least 8 characters.');
+      setErrorNewPassword("New password must be at least 8 characters.");
       return;
     }
     if (!/[A-Z]/.test(newPassword)) {
-      setErrorNewPassword('New password must contain at least one uppercase letter.');
+      setErrorNewPassword(
+        "New password must contain at least one uppercase letter."
+      );
       return;
     }
     if (newPassword !== confirmPassword) {
-      setErrorConfirmPassword('Passwords do not match.');
+      setErrorConfirmPassword("Passwords do not match.");
       return;
     }
 
     const userId = decodeUserId();
     if (!userId) {
-      setErrorMessage('User ID not found. Please log in again.');
+      setErrorMessage("User ID not found. Please log in again.");
       return;
     }
 
     try {
       const response = await fetch(
-        'https://sneaker-configurator-backend.onrender.com/users/updatePassword',
+        "https://sneaker-configurator-backend.onrender.com/users/updatePassword",
         {
-          method: 'PUT',
+          method: "PUT",
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({
             userId,
@@ -78,31 +80,36 @@ const ChangePasswordPage: React.FC = () => {
 
       const data = await response.json();
 
-      if (data.status === 'success') {
-        setSuccessMessage('Password changed successfully.');
+      if (data.status === "success") {
+        setSuccessMessage("Password changed successfully.");
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate("/dashboard");
         }, 2000);
       } else {
-        setErrorMessage(data.message || 'Failed to change password.');
+        setErrorMessage(data.message || "Failed to change password.");
       }
     } catch (error) {
-      console.error('Error changing password:', error);
-      setErrorMessage('An error occurred. Please try again later.');
+      console.error("Error changing password:", error);
+      setErrorMessage("An error occurred. Please try again later.");
     }
   };
 
   return (
     <div className="min-h-screen flex bg-gray-100">
       <Sidebar />
-      
+
       {/* Change password form */}
       <div className="flex-1 flex items-center justify-center bg-gray-100">
         <div className="bg-white p-8 shadow-lg max-w-sm w-full rounded">
-          <h1 className="text-xl font-bold text-gray-800 mb-4">Change Password</h1>
+          <h1 className="text-xl font-bold text-gray-800 mb-4">
+            Change Password
+          </h1>
           <form onSubmit={handleChangePassword} className="space-y-6">
             <div>
-              <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="newPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
                 New Password
               </label>
               <Input
@@ -118,7 +125,10 @@ const ChangePasswordPage: React.FC = () => {
               )}
             </div>
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Confirm New Password
               </label>
               <Input
@@ -130,7 +140,9 @@ const ChangePasswordPage: React.FC = () => {
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 bg-white text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 sm:text-sm"
               />
               {errorConfirmPassword && (
-                <p className="text-red-500 text-sm mt-1">{errorConfirmPassword}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errorConfirmPassword}
+                </p>
               )}
             </div>
             <Button
