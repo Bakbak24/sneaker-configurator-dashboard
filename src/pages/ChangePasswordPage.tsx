@@ -100,7 +100,7 @@ const ChangePasswordPage: React.FC = () => {
 
       {/* Change password form */}
       <div className="flex-1 flex items-center justify-center bg-gray-100 p-4">
-        <div className="bg-white p-6 md:p-8 shadow-lg max-w-sm w-full rounded">
+        <div className="bg-white p-6 md:p-8 shadow-lg max-w-sm w-full rounded-md">
           <h1 className="text-xl font-bold text-gray-800 mb-4">
             Change Password
           </h1>

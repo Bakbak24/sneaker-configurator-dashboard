@@ -52,7 +52,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="bg-white text-black p-8 shadow-lg max-w-sm w-full">
+      <div className="bg-white text-black p-8 shadow-lg max-w-sm w-full rounded-md">
         <div className="flex justify-center mb-6">
           <img
             src={swearLogo}
