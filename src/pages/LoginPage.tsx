@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import swearLogo from '@/assets/swear-logo.png';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import swearLogo from "@/assets/swear-logo.png";
 
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!username || !password) {
-      setErrorMessage('Please enter both username and password.');
+      setErrorMessage("Please enter both username and password.");
       return;
     }
 
     try {
       const response = await fetch(
-        'https://sneaker-configurator-backend.onrender.com/users/login',
+        "https://sneaker-configurator-backend.onrender.com/users/login",
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ username, password }),
         }
@@ -32,20 +32,20 @@ const LoginPage: React.FC = () => {
 
       const data = await response.json();
 
-      if (data.status === 'success') {
-        const decodedToken = JSON.parse(atob(data.data.token.split('.')[1]));
-        if (decodedToken.role !== 'admin') {
-          setErrorMessage('Access denied. Only admins can log in.');
+      if (data.status === "success") {
+        const decodedToken = JSON.parse(atob(data.data.token.split(".")[1]));
+        if (decodedToken.role !== "admin") {
+          setErrorMessage("Access denied. Only admins can log in.");
           return;
         }
 
-        localStorage.setItem('token', data.data.token);
-        navigate('/dashboard');
+        localStorage.setItem("token", data.data.token);
+        navigate("/dashboard");
       } else {
-        setErrorMessage(data.message || 'Invalid login credentials.');
+        setErrorMessage(data.message || "Invalid login credentials.");
       }
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again later.');
+      setErrorMessage("An error occurred. Please try again later.");
       console.error(error);
     }
   };
@@ -54,11 +54,18 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
       <div className="bg-white text-black p-8 shadow-lg max-w-sm w-full">
         <div className="flex justify-center mb-6">
-          <img src={swearLogo} alt="Swear London Logo" className="w-52 h-auto" />
+          <img
+            src={swearLogo}
+            alt="Swear London Logo"
+            className="w-52 h-auto"
+          />
         </div>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
               Username
             </label>
             <Input
@@ -71,7 +78,10 @@ const LoginPage: React.FC = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <Input
@@ -91,9 +101,7 @@ const LoginPage: React.FC = () => {
           </Button>
         </form>
         {errorMessage && (
-          <p className="text-red-500 text-center mt-4">
-            {errorMessage}
-          </p>
+          <p className="text-red-500 text-center mt-4">{errorMessage}</p>
         )}
       </div>
     </div>
