@@ -2,7 +2,7 @@ export interface Order {
   id: string;
   customer: string;
   date: string;
-  status: 'in-production' | 'shipped' | 'canceled';
+  status: "in-production" | "shipped" | "canceled";
   laceColor?: {
     color: string;
     material: string;
@@ -21,4 +21,4 @@ export interface Order {
   };
 }
 
-export type OrderStatus = 'in-production' | 'shipped' | 'canceled';
+export type OrderStatus = "in-production" | "shipped" | "canceled";
