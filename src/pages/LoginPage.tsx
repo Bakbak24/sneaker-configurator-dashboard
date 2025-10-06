@@ -95,7 +95,7 @@ const LoginPage: React.FC = () => {
           </div>
           <Button
             type="submit"
-            className="w-full bg-black text-white font-semibold py-3 px-4 border border-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            className="w-full bg-black text-white font-semibold py-3 px-4 border border-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer"
           >
             Login
           </Button>
