@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import swearLogo from '@/assets/swear-logo.png';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -53,7 +54,7 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
       <div className="bg-white text-black p-8 shadow-lg max-w-sm w-full">
         <div className="flex justify-center mb-6">
-          <img src="/swear-logo.png" alt="Swear London Logo" className="w-52 h-auto" />
+          <img src={swearLogo} alt="Swear London Logo" className="w-52 h-auto" />
         </div>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
