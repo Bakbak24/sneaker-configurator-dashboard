@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Lock, LogOut, Menu, X } from 'lucide-react';
-import swearLogoWhite from '@/assets/swear-logo-wh.png';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { LayoutDashboard, Lock, LogOut, Menu, X } from "lucide-react";
+import swearLogoWhite from "@/assets/swear-logo-wh.png";
 
 const Sidebar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/');
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
   const toggleMobileMenu = () => {
@@ -42,8 +42,14 @@ const Sidebar: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-black z-50" onClick={toggleMobileMenu}>
-          <div className="bg-black text-white w-full h-full flex flex-col" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="md:hidden fixed inset-0 bg-black z-50"
+          onClick={toggleMobileMenu}
+        >
+          <div
+            className="bg-black text-white w-full h-full flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Header with Brand and Close */}
             <div className="flex justify-between items-center p-6 border-b border-gray-800">
               <h1 className="text-xl font-bold text-white">SWEAR</h1>
@@ -59,7 +65,7 @@ const Sidebar: React.FC = () => {
             {/* Navigation Menu */}
             <nav className="flex-1 px-6 py-8 space-y-6">
               <Button
-                onClick={() => handleNavigation('/dashboard')}
+                onClick={() => handleNavigation("/dashboard")}
                 variant="ghost"
                 className="w-full justify-start text-white hover:bg-white/10 hover:text-white transition-all cursor-pointer py-4 text-lg font-normal"
               >
@@ -68,7 +74,7 @@ const Sidebar: React.FC = () => {
               </Button>
 
               <Button
-                onClick={() => handleNavigation('/change-password')}
+                onClick={() => handleNavigation("/change-password")}
                 variant="ghost"
                 className="w-full justify-start text-white hover:bg-white/10 hover:text-white transition-all cursor-pointer py-4 text-lg font-normal"
               >
@@ -95,24 +101,24 @@ const Sidebar: React.FC = () => {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex w-64 bg-black text-white flex-col">
         <div className="p-6">
-          <img 
-            src={swearLogoWhite} 
-            alt="Swear London Logo" 
+          <img
+            src={swearLogoWhite}
+            alt="Swear London Logo"
             className="w-40 h-auto mb-8"
           />
-          
+
           <nav className="space-y-4">
             <Button
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate("/dashboard")}
               variant="ghost"
               className="w-full justify-start text-white hover:bg-white/10 hover:text-white transition-all cursor-pointer"
             >
               <LayoutDashboard className="mr-2 h-4 w-4" />
               Dashboard
             </Button>
-            
+
             <Button
-              onClick={() => navigate('/change-password')}
+              onClick={() => navigate("/change-password")}
               variant="ghost"
               className="w-full justify-start text-white hover:bg-white/10 hover:text-white transition-all cursor-pointer"
             >
@@ -121,7 +127,7 @@ const Sidebar: React.FC = () => {
             </Button>
           </nav>
         </div>
-        
+
         <div className="mt-auto p-6">
           <Button
             onClick={handleLogout}
